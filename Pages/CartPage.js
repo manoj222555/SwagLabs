@@ -1,10 +1,14 @@
 exports.CartPage = class CartPage {
   constructor(page) {
     this.page = page;
-    this.Removebtn = "#remove-sauce-labs-backpack";
+    this.cartItems = ".cart_item";
   }
 
-  async removeProduct() {
-    await this.page.locator(this.Removebtn).click();
+  async removeProduct(productName) {
+    const product = this.page
+      .locator(this.cartItems)
+      .filter({ hasText: productName });
+
+    await product.getByRole("button", { name: "Remove" }).click();
   }
 };
